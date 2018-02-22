@@ -63,9 +63,19 @@ namespace filters.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Penguins {
+        internal static System.Drawing.Bitmap pingwiny {
             get {
-                object obj = ResourceManager.GetObject("Penguins", resourceCulture);
+                object obj = ResourceManager.GetObject("pingwiny", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap widok {
+            get {
+                object obj = ResourceManager.GetObject("widok", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -137,6 +137,7 @@
             this.contrast.TabIndex = 2;
             this.contrast.Text = "contrast";
             this.contrast.UseVisualStyleBackColor = true;
+            this.contrast.Click += new System.EventHandler(this.contrast_Click);
             // 
             // blur
             // 
@@ -147,6 +148,7 @@
             this.blur.TabIndex = 4;
             this.blur.Text = "blur";
             this.blur.UseVisualStyleBackColor = true;
+            this.blur.Click += new System.EventHandler(this.blur_Click);
             // 
             // gaussianBlur
             // 

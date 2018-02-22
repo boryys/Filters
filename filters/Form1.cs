@@ -15,13 +15,14 @@ namespace filters
         Bitmap originalPhoto;
 
         int bc = 70;
+        double cntr = 1.7;
 
         public Form()
         {
             InitializeComponent();
 
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            originalPhoto = Properties.Resources.Penguins;
+            originalPhoto = Properties.Resources.widok;
             pictureBox.Image = originalPhoto;
         }
 
@@ -61,13 +62,25 @@ namespace filters
                     color = originalPhoto.GetPixel(x, y);
 
                     if (color.R + bc > 255) r = 255;
-                    else r = color.R + bc;
+                    else
+                    {
+                        if (color.R + bc < 0) r = 0;
+                        else r = color.R + bc;
+                    }
 
                     if (color.G + bc > 255) g = 255;
-                    else g = color.G + bc;
+                    else
+                    {
+                        if (color.G + bc < 0) g = 0;
+                        else g = color.G + bc;
+                    }
 
                     if (color.B + bc > 255) b = 255;
-                    else b = color.B + bc;
+                    else
+                    {
+                        if (color.B + bc < 0) b = 0;
+                        else b = color.B + bc;
+                    }
 
                     tmp.SetPixel(x, y, Color.FromArgb(r, g, b));
                 }
@@ -80,5 +93,59 @@ namespace filters
         {
             pictureBox.Image = originalPhoto;
         }
+
+
+        private void contrast_Click(object sender, EventArgs e)
+        {
+            Color color;
+            int r, g, b;
+            Bitmap tmp = (Bitmap)originalPhoto.Clone();
+
+            for (int x = 0; x < originalPhoto.Width; x++)
+            {
+                for (int y = 0; y < originalPhoto.Height; y++)
+                {
+                    color = originalPhoto.GetPixel(x, y);
+
+                    if (contrastFormula(color.R) > 255) r = 255;
+                    else
+                    {
+                        if (contrastFormula(color.R) < 0) r = 0;
+                        else r = (int)contrastFormula(color.R);
+                    }
+
+                    if (contrastFormula(color.G) > 255) g = 255;
+                    else
+                    {
+                        if (contrastFormula(color.G) < 0) g = 0;
+                        else g = (int)contrastFormula(color.G);
+                    }
+
+                    if (contrastFormula(color.B) > 255) b = 255;
+                    else
+                    {
+                        if (contrastFormula(color.B) < 0) b = 0;
+                        else b = (int)contrastFormula(color.B);
+                    }
+
+                    tmp.SetPixel(x, y, Color.FromArgb(r, g, b));
+                }
+            }
+
+            pictureBox.Image = tmp;
+        }
+
+        private double contrastFormula(double c)
+        {
+            c = cntr * (c - 127) + 127;
+            return c;
+        }
+
+        private void blur_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        
     }
 }
