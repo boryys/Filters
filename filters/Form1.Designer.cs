@@ -1,6 +1,6 @@
 ﻿namespace filters
 {
-    partial class Form
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -199,6 +199,7 @@
             this.editor.TabIndex = 9;
             this.editor.Text = "editor";
             this.editor.UseVisualStyleBackColor = true;
+            this.editor.Click += new System.EventHandler(this.editor_Click);
             // 
             // original
             // 

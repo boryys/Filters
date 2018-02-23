@@ -10,14 +10,16 @@ using System.Windows.Forms;
 
 namespace filters
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class Form1 : System.Windows.Forms.Form
     {
+        Form2 form;
         Bitmap originalPhoto;
 
         int bc = 70;
         double cntr = 1.7;
+        const int matrixSize = 3;
 
-        public Form()
+        public Form1()
         {
             InitializeComponent();
 
@@ -143,9 +145,32 @@ namespace filters
 
         private void blur_Click(object sender, EventArgs e)
         {
-            
+            int[,] matrix = new int[matrixSize - 1, matrixSize - 1];
+
+            Color color;
+            int r, g, b, rr = 0, gg = 0, bb = 0;
+            Bitmap tmp = (Bitmap)originalPhoto.Clone();
+
+            for (int x = 0; x < originalPhoto.Width; x++)
+            {
+                for (int y = 0; y < originalPhoto.Height; y++)
+                {
+                    
+                    for(int i = 0; i < matrixSize; i++)
+                    {
+                        for(int j = 0; j < matrixSize; j++)
+                        {
+                            
+                        }
+                    }
+                }
+            }
         }
 
-        
+        private void editor_Click(object sender, EventArgs e)
+        {
+            form = new Form2();
+            form.ShowDialog();
+        }
     }
 }
