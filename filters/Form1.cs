@@ -18,13 +18,16 @@ namespace filters
         int bc = 70;
         double cntr = 1.7;
         const int matrixSize = 3;
+        int divisor = 1;
+        int offset = 0;
+        Point anchorPoint = new Point(1, 1);
 
         public Form1()
         {
             InitializeComponent();
 
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            originalPhoto = Properties.Resources.widok;
+            originalPhoto = Properties.Resources.pingwiny;
             pictureBox.Image = originalPhoto;
         }
 
@@ -63,26 +66,9 @@ namespace filters
                 {
                     color = originalPhoto.GetPixel(x, y);
 
-                    if (color.R + bc > 255) r = 255;
-                    else
-                    {
-                        if (color.R + bc < 0) r = 0;
-                        else r = color.R + bc;
-                    }
-
-                    if (color.G + bc > 255) g = 255;
-                    else
-                    {
-                        if (color.G + bc < 0) g = 0;
-                        else g = color.G + bc;
-                    }
-
-                    if (color.B + bc > 255) b = 255;
-                    else
-                    {
-                        if (color.B + bc < 0) b = 0;
-                        else b = color.B + bc;
-                    }
+                    r = check(color.R + bc);
+                    g = check(color.G + bc);
+                    b = check(color.B + bc);
 
                     tmp.SetPixel(x, y, Color.FromArgb(r, g, b));
                 }
@@ -109,26 +95,9 @@ namespace filters
                 {
                     color = originalPhoto.GetPixel(x, y);
 
-                    if (contrastFormula(color.R) > 255) r = 255;
-                    else
-                    {
-                        if (contrastFormula(color.R) < 0) r = 0;
-                        else r = (int)contrastFormula(color.R);
-                    }
-
-                    if (contrastFormula(color.G) > 255) g = 255;
-                    else
-                    {
-                        if (contrastFormula(color.G) < 0) g = 0;
-                        else g = (int)contrastFormula(color.G);
-                    }
-
-                    if (contrastFormula(color.B) > 255) b = 255;
-                    else
-                    {
-                        if (contrastFormula(color.B) < 0) b = 0;
-                        else b = (int)contrastFormula(color.B);
-                    }
+                    r = check((int)contrastFormula(color.R));
+                    g = check((int)contrastFormula(color.G));
+                    b = check((int)contrastFormula(color.B));
 
                     tmp.SetPixel(x, y, Color.FromArgb(r, g, b));
                 }
@@ -145,26 +114,86 @@ namespace filters
 
         private void blur_Click(object sender, EventArgs e)
         {
-            int[,] matrix = new int[matrixSize - 1, matrixSize - 1];
+            //int[,] matrix = new int[matrixSize, matrixSize];
 
+            int[,] matrix =  {
+                        { 1,1,1 },
+                        { 1,1,1 },
+                        { 1,1,1 }
+                     };
+
+            divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i,j];
+
+            Point anchor = new Point(1, 1);
             Color color;
-            int r, g, b, rr = 0, gg = 0, bb = 0;
+            int r, g, b, rr = 0, gg = 0, bb = 0, mx, my;
+            
             Bitmap tmp = (Bitmap)originalPhoto.Clone();
 
-            for (int x = 0; x < originalPhoto.Width; x++)
+            for (int y = 0; y < originalPhoto.Height; y++)
             {
-                for (int y = 0; y < originalPhoto.Height; y++)
+                for (int x = 0; x < originalPhoto.Width; x++)
                 {
-                    
-                    for(int i = 0; i < matrixSize; i++)
+                    rr = 0;
+                    gg = 0;
+                    bb = 0;
+                    for (int j = 0; j < matrixSize; j++)
                     {
-                        for(int j = 0; j < matrixSize; j++)
+                        for(int i = 0; i < matrixSize; i++)
                         {
+                            mx = x + i - anchor.X;
+                            my = y + j - anchor.Y;
+
+                            if (mx < 0) mx = 0;
+                            else
+                            {
+                                if (mx >= originalPhoto.Width) mx = originalPhoto.Width - 1;
+                            }
                             
+                            if (my < 0) my = 0;
+                            else
+                            {
+                                if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
+                            }
+                            if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
+
+                            color = originalPhoto.GetPixel(mx, my);
+                            rr += matrix[i, j] * color.R;
+                            gg += matrix[i, j] * color.G;
+                            bb += matrix[i, j] * color.B;
                         }
                     }
+
+                    r = offset + rr / divisor;
+                    g = offset + gg / divisor;
+                    b = offset + bb / divisor;
+
+                    r = check(r);
+                    g = check(g);
+                    b = check(b);
+
+                    tmp.SetPixel(x, y, Color.FromArgb(r,g,b));
                 }
             }
+
+            pictureBox.Image = tmp;
+        }
+
+        private int check(int c)
+        {
+            if (c > 255) c = 255;
+            else
+                if (c < 0) c = 0;
+
+            return c;
+        }
+
+        private void convolutionFiler(int[,] matrix, Point anchor, int div, int off)
+        {
+
         }
 
         private void editor_Click(object sender, EventArgs e)
