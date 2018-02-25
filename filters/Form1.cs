@@ -13,13 +13,13 @@ namespace filters
     public partial class Form1 : System.Windows.Forms.Form
     {
         Form2 form;
-        Bitmap originalPhoto;
+        static Bitmap originalPhoto;
 
         int bc = 70;
         double cntr = 1.7;
         const int matrixSize = 3;
-        int divisor = 1;
         int offset = 0;
+        int offset2 = 127;
         Point anchorPoint = new Point(1, 1);
 
         public Form1()
@@ -27,7 +27,7 @@ namespace filters
             InitializeComponent();
 
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            originalPhoto = Properties.Resources.pingwiny;
+            originalPhoto = Properties.Resources.widok;
             pictureBox.Image = originalPhoto;
         }
 
@@ -114,23 +114,118 @@ namespace filters
 
         private void blur_Click(object sender, EventArgs e)
         {
-            //int[,] matrix = new int[matrixSize, matrixSize];
-
             int[,] matrix =  {
                         { 1,1,1 },
                         { 1,1,1 },
                         { 1,1,1 }
                      };
 
-            divisor = 0;
+            int divisor = 0;
             for (int i = 0; i < matrixSize; i++)
                 for (int j = 0; j < matrixSize; j++)
                     divisor += matrix[i,j];
 
+            if (divisor == 0) divisor = 1;
+
             Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+        }
+
+        private void gaussianBlur_Click(object sender, EventArgs e)
+        {
+            int[,] matrix =  {
+                        { 0,1,0 },
+                        { 1,4,1 },
+                        { 0,1,0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i, j];
+
+            if (divisor == 0) divisor = 1;
+
+            Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+        }
+
+        private void sharpen_Click(object sender, EventArgs e)
+        {
+            int[,] matrix =  {
+                        {  0,-1, 0 },
+                        { -1, 5,-1 },
+                        {  0,-1, 0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i, j];
+
+            if (divisor == 0) divisor = 1;
+
+            Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+        }
+
+        private void edgeDetection_Click(object sender, EventArgs e)
+        {
+            int[,] matrix =  {
+                        {  0,-1,0 },
+                        {  0,1,0 },
+                        {  0,0,0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i, j];
+
+            if (divisor == 0) divisor = 1;
+
+            Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset2);
+        }
+
+        private void emboss_Click(object sender, EventArgs e)
+        {
+            int[,] matrix =  {
+                        { -1,-1,-1 },
+                        {  0, 1, 0 },
+                        {  1, 1, 1 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i, j];
+
+            if (divisor == 0) divisor = 1;
+
+            Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+        }
+
+        static int check(int c)
+        {
+            if (c > 255) c = 255;
+            else
+                if (c < 0) c = 0;
+
+            return c;
+        }
+
+        static public Bitmap convolutionFiler(int matrixWidth, int matrixHeight, int[,] matrix, Point anchor, int div, int off)
+        {
             Color color;
             int r, g, b, rr = 0, gg = 0, bb = 0, mx, my;
-            
+
             Bitmap tmp = (Bitmap)originalPhoto.Clone();
 
             for (int y = 0; y < originalPhoto.Height; y++)
@@ -140,9 +235,9 @@ namespace filters
                     rr = 0;
                     gg = 0;
                     bb = 0;
-                    for (int j = 0; j < matrixSize; j++)
+                    for (int j = 0; j < matrixHeight; j++)
                     {
-                        for(int i = 0; i < matrixSize; i++)
+                        for (int i = 0; i < matrixWidth; i++)
                         {
                             mx = x + i - anchor.X;
                             my = y + j - anchor.Y;
@@ -152,7 +247,7 @@ namespace filters
                             {
                                 if (mx >= originalPhoto.Width) mx = originalPhoto.Width - 1;
                             }
-                            
+
                             if (my < 0) my = 0;
                             else
                             {
@@ -167,39 +262,28 @@ namespace filters
                         }
                     }
 
-                    r = offset + rr / divisor;
-                    g = offset + gg / divisor;
-                    b = offset + bb / divisor;
+                    r = off + rr / div;
+                    g = off + gg / div;
+                    b = off + bb / div;
 
                     r = check(r);
                     g = check(g);
                     b = check(b);
 
-                    tmp.SetPixel(x, y, Color.FromArgb(r,g,b));
+                    tmp.SetPixel(x, y, Color.FromArgb(r, g, b));
                 }
             }
 
-            pictureBox.Image = tmp;
-        }
-
-        private int check(int c)
-        {
-            if (c > 255) c = 255;
-            else
-                if (c < 0) c = 0;
-
-            return c;
-        }
-
-        private void convolutionFiler(int[,] matrix, Point anchor, int div, int off)
-        {
-
+            return tmp;
         }
 
         private void editor_Click(object sender, EventArgs e)
         {
             form = new Form2();
-            form.ShowDialog();
+            if(form.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox.Image = form.TMP;
+            }
         }
     }
 }

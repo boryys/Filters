@@ -159,6 +159,7 @@
             this.gaussianBlur.TabIndex = 5;
             this.gaussianBlur.Text = "gaussian blur";
             this.gaussianBlur.UseVisualStyleBackColor = true;
+            this.gaussianBlur.Click += new System.EventHandler(this.gaussianBlur_Click);
             // 
             // sharpen
             // 
@@ -169,6 +170,7 @@
             this.sharpen.TabIndex = 6;
             this.sharpen.Text = "sharpen";
             this.sharpen.UseVisualStyleBackColor = true;
+            this.sharpen.Click += new System.EventHandler(this.sharpen_Click);
             // 
             // edgeDetection
             // 
@@ -179,6 +181,7 @@
             this.edgeDetection.TabIndex = 7;
             this.edgeDetection.Text = "edge detection";
             this.edgeDetection.UseVisualStyleBackColor = true;
+            this.edgeDetection.Click += new System.EventHandler(this.edgeDetection_Click);
             // 
             // emboss
             // 
@@ -189,6 +192,7 @@
             this.emboss.TabIndex = 8;
             this.emboss.Text = "emboss";
             this.emboss.UseVisualStyleBackColor = true;
+            this.emboss.Click += new System.EventHandler(this.emboss_Click);
             // 
             // editor
             // 
@@ -242,7 +246,7 @@
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
             // 
-            // Form
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,7 +256,7 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(800, 550);
             this.MinimumSize = new System.Drawing.Size(800, 550);
-            this.Name = "Form";
+            this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filters";
             this.tableLayoutPanel.ResumeLayout(false);

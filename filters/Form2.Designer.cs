@@ -151,9 +151,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(393, 13);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Set division";
+            this.label6.Text = "Set divisor";
             // 
             // label7
             // 
@@ -178,16 +178,18 @@
             this.offset.Name = "offset";
             this.offset.Size = new System.Drawing.Size(30, 20);
             this.offset.TabIndex = 14;
-            this.offset.Text = "127";
+            this.offset.Text = "0";
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(225, 459);
+            this.loadButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.loadButton.Location = new System.Drawing.Point(213, 459);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(110, 41);
             this.loadButton.TabIndex = 15;
             this.loadButton.Text = "Load filter";
             this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
             // Form2
             // 
