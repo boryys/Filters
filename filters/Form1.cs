@@ -20,7 +20,6 @@ namespace filters
         const int matrixSize = 3;
         int offset = 0;
         int offset2 = 127;
-        Point anchorPoint = new Point(1, 1);
 
         public Form1()
         {
@@ -112,6 +111,20 @@ namespace filters
             return c;
         }
 
+        private void Filter(int[,] matrix, int off)
+        {
+            int divisor = 0;
+            for (int i = 0; i < matrixSize; i++)
+                for (int j = 0; j < matrixSize; j++)
+                    divisor += matrix[i, j];
+
+            if (divisor == 0) divisor = 1;
+
+            Point anchor = new Point(1, 1);
+
+            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, off);
+        }
+
         private void blur_Click(object sender, EventArgs e)
         {
             int[,] matrix =  {
@@ -120,16 +133,7 @@ namespace filters
                         { 1,1,1 }
                      };
 
-            int divisor = 0;
-            for (int i = 0; i < matrixSize; i++)
-                for (int j = 0; j < matrixSize; j++)
-                    divisor += matrix[i,j];
-
-            if (divisor == 0) divisor = 1;
-
-            Point anchor = new Point(1, 1);
-
-            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+            Filter(matrix, offset);
         }
 
         private void gaussianBlur_Click(object sender, EventArgs e)
@@ -140,16 +144,7 @@ namespace filters
                         { 0,1,0 }
                      };
 
-            int divisor = 0;
-            for (int i = 0; i < matrixSize; i++)
-                for (int j = 0; j < matrixSize; j++)
-                    divisor += matrix[i, j];
-
-            if (divisor == 0) divisor = 1;
-
-            Point anchor = new Point(1, 1);
-
-            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+            Filter(matrix, offset);
         }
 
         private void sharpen_Click(object sender, EventArgs e)
@@ -160,16 +155,7 @@ namespace filters
                         {  0,-1, 0 }
                      };
 
-            int divisor = 0;
-            for (int i = 0; i < matrixSize; i++)
-                for (int j = 0; j < matrixSize; j++)
-                    divisor += matrix[i, j];
-
-            if (divisor == 0) divisor = 1;
-
-            Point anchor = new Point(1, 1);
-
-            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+            Filter(matrix, offset);
         }
 
         private void edgeDetection_Click(object sender, EventArgs e)
@@ -180,16 +166,7 @@ namespace filters
                         {  0,0,0 }
                      };
 
-            int divisor = 0;
-            for (int i = 0; i < matrixSize; i++)
-                for (int j = 0; j < matrixSize; j++)
-                    divisor += matrix[i, j];
-
-            if (divisor == 0) divisor = 1;
-
-            Point anchor = new Point(1, 1);
-
-            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset2);
+            Filter(matrix, offset2);
         }
 
         private void emboss_Click(object sender, EventArgs e)
@@ -200,16 +177,7 @@ namespace filters
                         { -1, 0, 1 }
                      };
 
-            int divisor = 0;
-            for (int i = 0; i < matrixSize; i++)
-                for (int j = 0; j < matrixSize; j++)
-                    divisor += matrix[i, j];
-
-            if (divisor == 0) divisor = 1;
-
-            Point anchor = new Point(1, 1);
-
-            pictureBox.Image = convolutionFiler(matrixSize, matrixSize, matrix, anchor, divisor, offset);
+            Filter(matrix, offset);
         }
 
         static int check(int c)
