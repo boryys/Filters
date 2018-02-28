@@ -44,6 +44,13 @@
             this.division = new System.Windows.Forms.TextBox();
             this.offset = new System.Windows.Forms.TextBox();
             this.loadButton = new System.Windows.Forms.Button();
+            this.blurButton = new System.Windows.Forms.Button();
+            this.gBlurButton = new System.Windows.Forms.Button();
+            this.sharpenButton = new System.Windows.Forms.Button();
+            this.edgeButton = new System.Windows.Forms.Button();
+            this.embossButton = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -191,12 +198,87 @@
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
+            // blurButton
+            // 
+            this.blurButton.Location = new System.Drawing.Point(517, 91);
+            this.blurButton.Name = "blurButton";
+            this.blurButton.Size = new System.Drawing.Size(75, 60);
+            this.blurButton.TabIndex = 16;
+            this.blurButton.Text = "blur";
+            this.blurButton.UseVisualStyleBackColor = true;
+            this.blurButton.Click += new System.EventHandler(this.blurButton_Click);
+            // 
+            // gBlurButton
+            // 
+            this.gBlurButton.Location = new System.Drawing.Point(517, 157);
+            this.gBlurButton.Name = "gBlurButton";
+            this.gBlurButton.Size = new System.Drawing.Size(75, 60);
+            this.gBlurButton.TabIndex = 17;
+            this.gBlurButton.Text = "gaussian blur";
+            this.gBlurButton.UseVisualStyleBackColor = true;
+            this.gBlurButton.Click += new System.EventHandler(this.gBlurButton_Click);
+            // 
+            // sharpenButton
+            // 
+            this.sharpenButton.Location = new System.Drawing.Point(517, 223);
+            this.sharpenButton.Name = "sharpenButton";
+            this.sharpenButton.Size = new System.Drawing.Size(75, 60);
+            this.sharpenButton.TabIndex = 18;
+            this.sharpenButton.Text = "sharpen";
+            this.sharpenButton.UseVisualStyleBackColor = true;
+            this.sharpenButton.Click += new System.EventHandler(this.sharpenButton_Click);
+            // 
+            // edgeButton
+            // 
+            this.edgeButton.Location = new System.Drawing.Point(517, 289);
+            this.edgeButton.Name = "edgeButton";
+            this.edgeButton.Size = new System.Drawing.Size(75, 60);
+            this.edgeButton.TabIndex = 19;
+            this.edgeButton.Text = "edge detection";
+            this.edgeButton.UseVisualStyleBackColor = true;
+            this.edgeButton.Click += new System.EventHandler(this.edgeButton_Click);
+            // 
+            // embossButton
+            // 
+            this.embossButton.Location = new System.Drawing.Point(517, 355);
+            this.embossButton.Name = "embossButton";
+            this.embossButton.Size = new System.Drawing.Size(75, 60);
+            this.embossButton.TabIndex = 20;
+            this.embossButton.Text = "emboss";
+            this.embossButton.UseVisualStyleBackColor = true;
+            this.embossButton.Click += new System.EventHandler(this.embossButton_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(514, 43);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Load predefined";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(539, 62);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "filters";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(514, 512);
+            this.ClientSize = new System.Drawing.Size(604, 512);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.embossButton);
+            this.Controls.Add(this.edgeButton);
+            this.Controls.Add(this.sharpenButton);
+            this.Controls.Add(this.gBlurButton);
+            this.Controls.Add(this.blurButton);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.offset);
             this.Controls.Add(this.division);
@@ -214,8 +296,8 @@
             this.Controls.Add(this.width);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(530, 550);
-            this.MinimumSize = new System.Drawing.Size(530, 550);
+            this.MaximumSize = new System.Drawing.Size(620, 550);
+            this.MinimumSize = new System.Drawing.Size(620, 550);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Editor";
@@ -242,5 +324,12 @@
         private System.Windows.Forms.TextBox division;
         private System.Windows.Forms.TextBox offset;
         private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.Button blurButton;
+        private System.Windows.Forms.Button gBlurButton;
+        private System.Windows.Forms.Button sharpenButton;
+        private System.Windows.Forms.Button edgeButton;
+        private System.Windows.Forms.Button embossButton;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }

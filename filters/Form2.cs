@@ -92,6 +92,224 @@ namespace filters
             tmp = Form1.convolutionFiler(mSizeWidth, mSizeHeight, matrix, anchor, div, off);
         }
 
+        private void blurButton_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            panel.ColumnStyles.Clear();
+            panel.RowStyles.Clear();
 
+            int[,] matrix =  {
+                        { 1, 1, 1 },
+                        { 1, 1, 1 },
+                        { 1, 1, 1 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    divisor += matrix[i, j];
+                }
+
+            if (divisor == 0) divisor = 1;
+
+            width.Text = "3";
+            height.Text = "3";
+            positionX.Text = "2";
+            positionY.Text = "2";
+            division.Text = divisor.ToString();
+            offset.Text = "0";
+
+            Point anchor = new Point(Int32.Parse(positionX.Text), Int32.Parse(positionY.Text));
+
+            panel.Size = new Size(33 * 3, 23 * 3);
+
+            NewMatrix();
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Control control = panel.GetControlFromPosition(i, j);
+                    control.Text = matrix[i, j].ToString();
+                }
+            }
+        }
+
+        private void gBlurButton_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            panel.ColumnStyles.Clear();
+            panel.RowStyles.Clear();
+
+            int[,] matrix =  {
+                        { 0,1,0 },
+                        { 1,4,1 },
+                        { 0,1,0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    divisor += matrix[i, j];
+                }
+
+            if (divisor == 0) divisor = 1;
+
+            width.Text = "3";
+            height.Text = "3";
+            positionX.Text = "2";
+            positionY.Text = "2";
+            division.Text = divisor.ToString();
+            offset.Text = "0";
+
+            Point anchor = new Point(Int32.Parse(positionX.Text), Int32.Parse(positionY.Text));
+
+            panel.Size = new Size(33 * 3, 23 * 3);
+
+            NewMatrix();
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Control control = panel.GetControlFromPosition(i, j);
+                    control.Text = matrix[i, j].ToString();
+                }
+            }
+        }
+
+        private void sharpenButton_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            panel.ColumnStyles.Clear();
+            panel.RowStyles.Clear();
+
+            int[,] matrix =  {
+                        {  0,-1, 0 },
+                        { -1, 5,-1 },
+                        {  0,-1, 0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    divisor += matrix[i, j];
+                }
+
+            if (divisor == 0) divisor = 1;
+
+            width.Text = "3";
+            height.Text = "3";
+            positionX.Text = "2";
+            positionY.Text = "2";
+            division.Text = divisor.ToString();
+            offset.Text = "0";
+
+            Point anchor = new Point(Int32.Parse(positionX.Text), Int32.Parse(positionY.Text));
+
+            panel.Size = new Size(33 * 3, 23 * 3);
+
+            NewMatrix();
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Control control = panel.GetControlFromPosition(i, j);
+                    control.Text = matrix[i, j].ToString();
+                }
+            }
+        }
+
+        private void edgeButton_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            panel.ColumnStyles.Clear();
+            panel.RowStyles.Clear();
+
+            int[,] matrix =  {
+                        {  0,-1,0 },
+                        {  0,1,0 },
+                        {  0,0,0 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    divisor += matrix[i, j];
+                }
+
+            if (divisor == 0) divisor = 1;
+
+            width.Text = "3";
+            height.Text = "3";
+            positionX.Text = "2";
+            positionY.Text = "2";
+            division.Text = divisor.ToString();
+            offset.Text = "127";
+
+            Point anchor = new Point(Int32.Parse(positionX.Text), Int32.Parse(positionY.Text));
+
+            panel.Size = new Size(33 * 3, 23 * 3);
+
+            NewMatrix();
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Control control = panel.GetControlFromPosition(i, j);
+                    control.Text = matrix[i, j].ToString();
+                }
+            }
+        }
+
+        private void embossButton_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            panel.ColumnStyles.Clear();
+            panel.RowStyles.Clear();
+
+            int[,] matrix =  {
+                        { -1, 0, 1 },
+                        { -1, 1, 1 },
+                        { -1, 0, 1 }
+                     };
+
+            int divisor = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    divisor += matrix[i, j];
+                }
+
+            if (divisor == 0) divisor = 1;
+
+            width.Text = "3";
+            height.Text = "3";
+            positionX.Text = "2";
+            positionY.Text = "2";
+            division.Text = divisor.ToString();
+            offset.Text = "0";
+
+            Point anchor = new Point(Int32.Parse(positionX.Text), Int32.Parse(positionY.Text));
+
+            panel.Size = new Size(33 * 3, 23 * 3);
+
+            NewMatrix();
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Control control = panel.GetControlFromPosition(i,j);
+                    control.Text = matrix[i,j].ToString();
+                }
+            }
+        }
     }
 }

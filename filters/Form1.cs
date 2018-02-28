@@ -195,9 +195,9 @@ namespace filters
         private void emboss_Click(object sender, EventArgs e)
         {
             int[,] matrix =  {
-                        { -1,-1,-1 },
-                        {  0, 1, 0 },
-                        {  1, 1, 1 }
+                        { -1, 0, 1 },
+                        { -1, 1, 1 },
+                        { -1, 0, 1 }
                      };
 
             int divisor = 0;
@@ -228,9 +228,9 @@ namespace filters
 
             Bitmap tmp = (Bitmap)originalPhoto.Clone();
 
-            for (int y = 0; y < originalPhoto.Height; y++)
+            for (int x = 0; x < originalPhoto.Width; x++)
             {
-                for (int x = 0; x < originalPhoto.Width; x++)
+                for (int y = 0; y < originalPhoto.Height; y++)
                 {
                     rr = 0;
                     gg = 0;
@@ -253,12 +253,12 @@ namespace filters
                             {
                                 if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
                             }
-                            if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
+                           
 
                             color = originalPhoto.GetPixel(mx, my);
-                            rr += matrix[i, j] * color.R;
-                            gg += matrix[i, j] * color.G;
-                            bb += matrix[i, j] * color.B;
+                            rr += matrix[i,j] * color.R;
+                            gg += matrix[i,j] * color.G;
+                            bb += matrix[i,j] * color.B;
                         }
                     }
 
