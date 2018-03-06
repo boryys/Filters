@@ -253,5 +253,99 @@ namespace filters
                 pictureBox.Image = form.TMP;
             }
         }
+
+        private void erosion_Click(object sender, EventArgs e)
+        {
+            Color color;
+            int r, g, b, min, c, mx, my;
+
+            Bitmap tmp = (Bitmap)originalPhoto.Clone();
+
+            for (int x = 0; x < originalPhoto.Width; x++)
+            {
+                for (int y = 0; y < originalPhoto.Height; y++)
+                {
+                    min = 255;
+
+                    for (int j = 0; j < 3; j++)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            mx = x + i - 1;
+                            my = y + j - 1;
+
+                            if (mx < 0) mx = 0;
+                            else
+                            {
+                                if (mx >= originalPhoto.Width) mx = originalPhoto.Width - 1;
+                            }
+
+                            if (my < 0) my = 0;
+                            else
+                            {
+                                if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
+                            }
+
+                            color = originalPhoto.GetPixel(mx, my);
+
+                            c = (color.R + color.G + color.B) / 3;
+
+                            if (c < min) min = c;
+                        }
+                    }
+
+                    tmp.SetPixel(x, y, Color.FromArgb(min, min, min));
+                }
+            }
+
+            pictureBox.Image = tmp;
+        }
+
+        private void dilator_Click(object sender, EventArgs e)
+        {
+            Color color;
+            int r, g, b, max, c, mx, my;
+
+            Bitmap tmp = (Bitmap)originalPhoto.Clone();
+
+            for (int x = 0; x < originalPhoto.Width; x++)
+            {
+                for (int y = 0; y < originalPhoto.Height; y++)
+                {
+                    max = 0;
+
+                    for (int j = 0; j < 3; j++)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            mx = x + i - 1;
+                            my = y + j - 1;
+
+                            if (mx < 0) mx = 0;
+                            else
+                            {
+                                if (mx >= originalPhoto.Width) mx = originalPhoto.Width - 1;
+                            }
+
+                            if (my < 0) my = 0;
+                            else
+                            {
+                                if (my >= originalPhoto.Height) my = originalPhoto.Height - 1;
+                            }
+
+                            color = originalPhoto.GetPixel(mx, my);
+
+                            c = (color.R + color.G + color.B) / 3;
+
+                            if (c > max) max = c;
+                        }
+                    }
+
+                    tmp.SetPixel(x, y, Color.FromArgb(max,max,max));
+                }
+            }
+
+            pictureBox.Image = tmp;
+        }
     }
 }
